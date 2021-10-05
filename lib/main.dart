@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
+import 'data/core/api_client.dart';
+import 'data/data_sources/movie_remote_data_source.dart';
 
 void main() {
+  ApiClient apiClient = ApiClient(Client());
+  MovieRemoteDataSource dataSource = MovieRemoteDataSourceImpl(apiClient);
+  dataSource.getTrending();
+  dataSource.getPopular();
+  dataSource.getPlayingNow();
+  dataSource.getComingSoon();
   runApp(MyApp());
 }
 
@@ -28,7 +38,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
