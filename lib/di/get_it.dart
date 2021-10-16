@@ -10,6 +10,7 @@ import 'package:moviemix/domain/use_case/get_popular.dart';
 import 'package:moviemix/domain/use_case/get_trending.dart';
 import 'package:moviemix/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:moviemix/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 
 final getItInstance = GetIt.I;
 
@@ -45,4 +46,11 @@ Future init() async {
         getTrending: getItInstance(), movieBackdropBloc: getItInstance()),
   );
   getItInstance.registerFactory(() => MovieBackdropBloc());
+  getItInstance.registerFactory(
+    () => MovieTabbedBloc(
+      getPopular: GetPopular(getItInstance()),
+      getComingSoon: GetComingSoon(getItInstance()),
+      getPlayingNow: GetPlayingNow(getItInstance()),
+    ),
+  );
 }
