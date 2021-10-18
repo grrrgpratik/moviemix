@@ -8,6 +8,7 @@ import 'package:moviemix/domain/use_case/get_coming_soon.dart';
 import 'package:moviemix/domain/use_case/get_playing_now.dart';
 import 'package:moviemix/domain/use_case/get_popular.dart';
 import 'package:moviemix/domain/use_case/get_trending.dart';
+import 'package:moviemix/presentation/blocs/language/language_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
@@ -53,4 +54,5 @@ Future init() async {
       getPlayingNow: GetPlayingNow(getItInstance()),
     ),
   );
+  getItInstance.registerSingleton<LanguageBloc>(LanguageBloc());
 }

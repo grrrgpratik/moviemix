@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moviemix/common/constants/language.dart';
+import 'package:moviemix/presentation/blocs/language/language_bloc.dart';
 
 import 'navigation_sub_list_item.dart';
 
@@ -16,30 +19,33 @@ class NavigationExpandedListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).primaryColor.withOpacity(0.7),
-              blurRadius: 2,
-            ),
-          ],
-        ),
-        child: ExpansionTile(
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.subtitle1,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).primaryColor.withOpacity(0.7),
+            blurRadius: 2,
           ),
-          children: [
-            for (int i = 0; i < children.length; i++)
-              NavigationSubListItem(
-                title: children[i],
-                onPressed: () {},
-              ),
-          ],
+        ],
+      ),
+      child: ExpansionTile(
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.subtitle1,
         ),
+        children: [
+          for (int i = 0; i < children.length; i++)
+            NavigationSubListItem(
+              title: children[i],
+              onPressed: () {
+                BlocProvider.of<LanguageBloc>(context).add(
+                  ToggleLanguageEvent(
+                    Languages.languages[i],
+                  ),
+                );
+              },
+            ),
+        ],
       ),
     );
   }

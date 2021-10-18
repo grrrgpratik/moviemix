@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
+import 'package:moviemix/common/extension/string_extension.dart';
 
 import 'movie_list_view_builder.dart';
 import 'movie_tabbed_constants.dart';
@@ -47,7 +48,7 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget>
                       i < MovieTabbedConstants.movieTabs.length;
                       i++)
                     TabTitleWidget(
-                      title: MovieTabbedConstants.movieTabs[i].title,
+                      title: MovieTabbedConstants.movieTabs[i].title.t(context),
                       onTap: () => _onTabTapped(i),
                       isSelected: MovieTabbedConstants.movieTabs[i].index ==
                           state.currentTabIndex,
