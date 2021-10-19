@@ -37,6 +37,7 @@ dependencies:
   cached_network_image: ^2.2.0+1
   flutter_localizations:
     sdk: flutter
+  wiredash: ^0.2.0
 
 dev_dependencies:
   flutter_test:
