@@ -5,12 +5,14 @@ import 'package:moviemix/data/data_sources/movie_remote_data_source.dart';
 import 'package:moviemix/data/repositories/movie_repository_impl.dart';
 import 'package:moviemix/domain/repositories/movie_repository.dart';
 import 'package:moviemix/domain/use_case/get_coming_soon.dart';
+import 'package:moviemix/domain/use_case/get_movie_detail.dart';
 import 'package:moviemix/domain/use_case/get_playing_now.dart';
 import 'package:moviemix/domain/use_case/get_popular.dart';
 import 'package:moviemix/domain/use_case/get_trending.dart';
 import 'package:moviemix/presentation/blocs/language/language_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:moviemix/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 
 final getItInstance = GetIt.I;
@@ -49,10 +51,19 @@ Future init() async {
   getItInstance.registerFactory(() => MovieBackdropBloc());
   getItInstance.registerFactory(
     () => MovieTabbedBloc(
-      getPopular: GetPopular(getItInstance()),
-      getComingSoon: GetComingSoon(getItInstance()),
-      getPlayingNow: GetPlayingNow(getItInstance()),
+      getPopular: getItInstance(),
+      getComingSoon: getItInstance(),
+      getPlayingNow: getItInstance(),
     ),
   );
   getItInstance.registerSingleton<LanguageBloc>(LanguageBloc());
+
+  getItInstance.registerLazySingleton<GetMovieDetail>(
+      () => GetMovieDetail(getItInstance()));
+
+  getItInstance.registerFactory(
+    () => MovieDetailBloc(
+      getMovieDetail: getItInstance(),
+    ),
+  );
 }

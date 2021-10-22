@@ -4,6 +4,8 @@ import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/data/core/api_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
+import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_arguments.dart';
+import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_screen.dart';
 
 class MovieTabCardWidget extends StatelessWidget {
   final int movieId;
@@ -19,7 +21,15 @@ class MovieTabCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MovieDetailScreen(
+              movieDetailArguments: MovieDetailArguments(movieId),
+            ),
+          ),
+        );
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
