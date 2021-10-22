@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviemix/domain/entities/movie_detail_entity.dart';
 
 class MovieDetailModel extends MovieDetailEntity {
@@ -139,7 +138,7 @@ class MovieDetailModel extends MovieDetailEntity {
 
 _genres(Map<String, dynamic> json) {
   if (json['genres'] != null) {
-    final genres = new List<Genres>();
+    final genres = <Genres>[];
     json['genres'].forEach((v) {
       genres.add(new Genres.fromJson(v));
     });

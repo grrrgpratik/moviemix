@@ -28,9 +28,9 @@ class Button extends StatelessWidget {
           Radius.circular(Sizes.dimen_20.w),
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_24.w),
+      padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w),
       margin: EdgeInsets.symmetric(vertical: Sizes.dimen_10.h),
-      height: Sizes.dimen_16.h,
+      height: Sizes.dimen_20.h,
       child: TextButton(
         onPressed: onPressed,
         child: Text(

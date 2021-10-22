@@ -37,12 +37,21 @@ class ThemeText {
         height: 1.5,
       );
 
+  static TextStyle get _darkCaption => _poppinsTextTheme.caption?.copyWith(
+        color: AppColor.vulcan,
+        fontSize: Sizes.dimen_14.sp,
+        wordSpacing: 0.25,
+        letterSpacing: 0.25,
+        height: 1.5,
+      );
+
   static getTextTheme() => TextTheme(
       headline5: _whiteHeadline5,
       headline6: _whiteHeadline6,
       subtitle1: whiteSubtitle1,
       bodyText2: whiteBodyText2,
-      button: _whiteButton);
+      button: _whiteButton,
+      caption: _darkCaption);
 }
 
 extension ThemeTextExtension on TextTheme {
@@ -57,5 +66,10 @@ extension ThemeTextExtension on TextTheme {
 
   TextStyle get violetHeadline6 => headline6.copyWith(
         color: AppColor.violet,
+      );
+
+  TextStyle get vulcanBodyText2 => bodyText2.copyWith(
+        color: AppColor.vulcan,
+        fontWeight: FontWeight.w600,
       );
 }

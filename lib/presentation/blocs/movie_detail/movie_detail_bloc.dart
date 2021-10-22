@@ -6,15 +6,21 @@ import 'package:moviemix/domain/entities/app_error.dart';
 import 'package:moviemix/domain/entities/movie_detail_entity.dart';
 import 'package:moviemix/domain/entities/movie_params.dart';
 import 'package:moviemix/domain/use_case/get_movie_detail.dart';
+import 'package:moviemix/presentation/blocs/cast/cast_bloc.dart';
+import 'package:moviemix/presentation/blocs/videos/videos_bloc.dart';
 
 part 'movie_detail_event.dart';
 part 'movie_detail_state.dart';
 
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetMovieDetail getMovieDetail;
+  final CastBloc castBloc;
+  final VideosBloc videosBloc;
 
   MovieDetailBloc({
     @required this.getMovieDetail,
+    @required this.castBloc,
+    @required this.videosBloc,
   }) : super(MovieDetailInitial());
 
   @override
@@ -31,6 +37,8 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         (l) => MovieDetailError(),
         (r) => MovieDetailLoaded(r),
       );
+      castBloc.add(LoadCastEvent(movieId: event.movieId));
+      videosBloc.add(LoadVideosEvent(event.movieId));
     }
   }
 }
