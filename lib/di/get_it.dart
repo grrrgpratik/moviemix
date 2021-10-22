@@ -11,12 +11,14 @@ import 'package:moviemix/domain/use_case/get_playing_now.dart';
 import 'package:moviemix/domain/use_case/get_popular.dart';
 import 'package:moviemix/domain/use_case/get_trending.dart';
 import 'package:moviemix/domain/use_case/get_videos.dart';
+import 'package:moviemix/domain/use_case/search_movies.dart';
 import 'package:moviemix/presentation/blocs/cast/cast_bloc.dart';
 import 'package:moviemix/presentation/blocs/language/language_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
+import 'package:moviemix/presentation/blocs/search_movie/search_movie_bloc.dart';
 import 'package:moviemix/presentation/blocs/videos/videos_bloc.dart';
 
 final getItInstance = GetIt.I;
@@ -51,6 +53,8 @@ Future init() async {
   getItInstance.registerLazySingleton<GetCast>(() => GetCast(getItInstance()));
   getItInstance
       .registerLazySingleton<GetVideos>(() => GetVideos(getItInstance()));
+  getItInstance
+      .registerLazySingleton<SearchMovies>(() => SearchMovies(getItInstance()));
 
   //Bloc
   getItInstance.registerFactory(
@@ -81,6 +85,11 @@ Future init() async {
   getItInstance.registerFactory(
     () => VideosBloc(
       getVideos: getItInstance(),
+    ),
+  );
+  getItInstance.registerFactory(
+    () => SearchMovieBloc(
+      searchMovies: getItInstance(),
     ),
   );
 }

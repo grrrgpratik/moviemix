@@ -6,6 +6,7 @@ import 'package:moviemix/data/models/movie_detail_model.dart';
 import 'package:moviemix/data/models/movie_model.dart';
 import 'package:moviemix/domain/entities/app_error.dart';
 import 'package:moviemix/domain/entities/cast_entity.dart';
+import 'package:moviemix/domain/entities/movie_entity.dart';
 import 'package:moviemix/domain/entities/video_entity.dart';
 import 'package:moviemix/domain/repositories/movie_repository.dart';
 
@@ -90,6 +91,19 @@ class MovieRepositoryImpl extends MovieRepository {
     try {
       final videos = await remoteDataSource.getVideos(id);
       return Right(videos);
+    } on SocketException {
+      return Left(AppError(AppErrorType.network));
+    } on Exception {
+      return Left(AppError(AppErrorType.api));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<MovieEntity>>> getSearchedMovies(
+      String searchTerm) async {
+    try {
+      final movies = await remoteDataSource.getSearchedMovies(searchTerm);
+      return Right(movies);
     } on SocketException {
       return Left(AppError(AppErrorType.network));
     } on Exception {

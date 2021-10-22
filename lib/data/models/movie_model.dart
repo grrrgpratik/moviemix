@@ -46,7 +46,7 @@ class MovieModel extends MovieEntity {
         genreIds: json['genre_ids'].cast<int>(),
         originalLanguage: json['original_language'],
         originalTitle: json['original_title'],
-        posterPath: json['poster_path'],
+        posterPath: json['poster_path'] ?? "",
         video: json['video'],
         voteAverage: json['vote_average']?.toDouble() ?? 0.00,
         overview: json['overview'],
