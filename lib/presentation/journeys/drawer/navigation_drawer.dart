@@ -4,6 +4,7 @@ import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
+import 'package:moviemix/presentation/journeys/favorite/favorite.dart';
 import 'package:moviemix/presentation/widgets/app_dialog.dart';
 import 'package:moviemix/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';
@@ -43,7 +44,12 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationConstants.favoriteMovies.t(context),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => FavoriteScreen()),
+                );
+              },
             ),
             NavigationExpandedListItem(
               title: TranslationConstants.language.t(context),
