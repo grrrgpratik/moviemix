@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviemix/common/constants/language.dart';
+import 'package:moviemix/common/constants/route_constants.dart';
 import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
@@ -46,9 +47,7 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslationConstants.favoriteMovies.t(context),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => FavoriteScreen()),
-                );
+                Navigator.of(context).pushNamed(RouteList.favorite);
               },
             ),
             NavigationExpandedListItem(
