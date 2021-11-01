@@ -8,8 +8,8 @@ import 'package:moviemix/di/get_it.dart';
 import 'package:moviemix/presentation/routes.dart';
 import 'app_localization.dart';
 import 'blocs/language/language_bloc.dart';
+import 'blocs/login/login_bloc.dart';
 import 'fade_page_route_builder.dart';
-import 'journeys/home/home_screen.dart';
 import 'themes/app_color.dart';
 import 'themes/text_theme.dart';
 import 'wiredash_app.dart';
@@ -23,25 +23,35 @@ class MovieApp extends StatefulWidget {
 
 class _MovieAppState extends State<MovieApp> {
   LanguageBloc _languageBloc;
+  LoginBloc _loginBloc;
   final _navigatorKey = GlobalKey<NavigatorState>();
   @override
   void initState() {
     super.initState();
     _languageBloc = getItInstance<LanguageBloc>();
     _languageBloc.add(LoadPreferredLanguageEvent());
+    _loginBloc = getItInstance<LoginBloc>();
   }
 
   @override
   void dispose() {
     _languageBloc.close();
+    _loginBloc?.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
-    return BlocProvider<LanguageBloc>.value(
-      value: _languageBloc,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LanguageBloc>.value(
+          value: _languageBloc,
+        ),
+        BlocProvider<LoginBloc>.value(
+          value: _loginBloc,
+        ),
+      ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           if (state is LanguageLoaded) {
