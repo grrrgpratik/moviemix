@@ -1,4 +1,4 @@
-package com.example.moviemix
+package com.pratik.moviemix
 
 import io.flutter.embedding.android.FlutterActivity
 

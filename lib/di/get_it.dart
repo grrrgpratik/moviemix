@@ -31,6 +31,7 @@ import 'package:moviemix/domain/use_case/update_language.dart';
 import 'package:moviemix/presentation/blocs/cast/cast_bloc.dart';
 import 'package:moviemix/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:moviemix/presentation/blocs/language/language_bloc.dart';
+import 'package:moviemix/presentation/blocs/loading/loading_bloc.dart';
 import 'package:moviemix/presentation/blocs/login/login_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:moviemix/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -113,7 +114,10 @@ Future init() async {
   //Bloc
   getItInstance.registerFactory(
     () => MovieCarouselBloc(
-        getTrending: getItInstance(), movieBackdropBloc: getItInstance()),
+      getTrending: getItInstance(),
+      movieBackdropBloc: getItInstance(),
+      loadingBloc: getItInstance(),
+    ),
   );
   getItInstance.registerFactory(() => MovieBackdropBloc());
   getItInstance.registerFactory(
@@ -129,10 +133,12 @@ Future init() async {
   ));
   getItInstance.registerFactory(
     () => MovieDetailBloc(
-        getMovieDetail: getItInstance(),
-        castBloc: getItInstance(),
-        videosBloc: getItInstance(),
-        favoriteBloc: getItInstance()),
+      getMovieDetail: getItInstance(),
+      castBloc: getItInstance(),
+      videosBloc: getItInstance(),
+      favoriteBloc: getItInstance(),
+      loadingBloc: getItInstance(),
+    ),
   );
   getItInstance.registerFactory(
     () => CastBloc(
@@ -147,6 +153,7 @@ Future init() async {
   getItInstance.registerFactory(
     () => SearchMovieBloc(
       searchMovies: getItInstance(),
+      loadingBloc: getItInstance(),
     ),
   );
   getItInstance.registerFactory(() => FavoriteBloc(
@@ -155,6 +162,10 @@ Future init() async {
         deleteFavoriteMovie: getItInstance(),
         getFavoriteMovies: getItInstance(),
       ));
-  getItInstance.registerFactory(
-      () => LoginBloc(loginUser: getItInstance(), logoutUser: getItInstance()));
+  getItInstance.registerFactory(() => LoginBloc(
+      loginUser: getItInstance(),
+      logoutUser: getItInstance(),
+      loadingBloc: getItInstance()));
+
+  getItInstance.registerLazySingleton(() => LoadingBloc());
 }

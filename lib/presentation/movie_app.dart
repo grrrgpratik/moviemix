@@ -8,8 +8,10 @@ import 'package:moviemix/di/get_it.dart';
 import 'package:moviemix/presentation/routes.dart';
 import 'app_localization.dart';
 import 'blocs/language/language_bloc.dart';
+import 'blocs/loading/loading_bloc.dart';
 import 'blocs/login/login_bloc.dart';
 import 'fade_page_route_builder.dart';
+import 'journeys/loading/loading_screen.dart';
 import 'themes/app_color.dart';
 import 'themes/text_theme.dart';
 import 'wiredash_app.dart';
@@ -24,6 +26,7 @@ class MovieApp extends StatefulWidget {
 class _MovieAppState extends State<MovieApp> {
   LanguageBloc _languageBloc;
   LoginBloc _loginBloc;
+  LoadingBloc _loadingBloc;
   final _navigatorKey = GlobalKey<NavigatorState>();
   @override
   void initState() {
@@ -31,12 +34,14 @@ class _MovieAppState extends State<MovieApp> {
     _languageBloc = getItInstance<LanguageBloc>();
     _languageBloc.add(LoadPreferredLanguageEvent());
     _loginBloc = getItInstance<LoginBloc>();
+    _loadingBloc = getItInstance<LoadingBloc>();
   }
 
   @override
   void dispose() {
     _languageBloc.close();
     _loginBloc?.close();
+    _loadingBloc?.close();
     super.dispose();
   }
 
@@ -50,6 +55,9 @@ class _MovieAppState extends State<MovieApp> {
         ),
         BlocProvider<LoginBloc>.value(
           value: _loginBloc,
+        ),
+        BlocProvider<LoadingBloc>.value(
+          value: _loadingBloc,
         ),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
@@ -81,7 +89,9 @@ class _MovieAppState extends State<MovieApp> {
                     GlobalWidgetsLocalizations.delegate,
                   ],
                   builder: (context, child) {
-                    return child;
+                    return LoadingScreen(
+                      screen: child,
+                    );
                   },
                   initialRoute: RouteList.initial,
                   onGenerateRoute: (RouteSettings settings) {

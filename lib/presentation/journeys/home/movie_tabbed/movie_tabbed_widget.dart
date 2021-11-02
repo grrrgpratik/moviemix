@@ -5,6 +5,7 @@ import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
+import 'package:moviemix/presentation/journeys/loading/loading_circle.dart';
 import 'package:moviemix/presentation/widgets/app_error_widget.dart';
 
 import 'movie_list_view_builder.dart';
@@ -82,6 +83,14 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget>
                     : Expanded(
                         child: MovieListViewBuilder(movies: state.movies),
                       ),
+              if (state is MovieTabLoading)
+                Expanded(
+                  child: Center(
+                    child: LoadingCircle(
+                      size: Sizes.dimen_100,
+                    ),
+                  ),
+                ),
             ],
           ),
         );
