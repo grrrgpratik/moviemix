@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviemix/common/constants/language.dart';
-import 'package:moviemix/presentation/blocs/language/language_bloc.dart';
+import 'package:moviemix/presentation/blocs/language/language_cubit.dart';
 
 import 'navigation_sub_list_item.dart';
 
@@ -38,11 +38,8 @@ class NavigationExpandedListItem extends StatelessWidget {
             NavigationSubListItem(
               title: children[i],
               onPressed: () {
-                BlocProvider.of<LanguageBloc>(context).add(
-                  ToggleLanguageEvent(
-                    Languages.languages[i],
-                  ),
-                );
+                BlocProvider.of<LanguageCubit>(context)
+                    .toggleLanguage(Languages.languages[i]);
               },
             ),
         ],

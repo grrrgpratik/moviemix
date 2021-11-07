@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/constants/translation_constants.dart';
-import 'package:moviemix/presentation/blocs/search_movie/search_movie_bloc.dart';
+import 'package:moviemix/presentation/blocs/search_movie/search_movie_cubit.dart';
 import 'package:moviemix/presentation/journeys/search_movie/search_movie_card.dart';
 import 'package:moviemix/presentation/themes/app_color.dart';
 import 'package:moviemix/presentation/widgets/app_error_widget.dart';
@@ -11,9 +11,9 @@ import 'package:moviemix/common/extension/string_extension.dart';
 import 'package:moviemix/presentation/themes/text_theme.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  final SearchMovieBloc searchMovieBloc;
+  final SearchMovieCubit searchMovieCubit;
 
-  CustomSearchDelegate(this.searchMovieBloc);
+  CustomSearchDelegate(this.searchMovieCubit);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -61,18 +61,15 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    searchMovieBloc.add(
-      SearchTermChangedEvent(query),
-    );
+    searchMovieCubit.searchTermChanged(query);
 
-    return BlocBuilder<SearchMovieBloc, SearchMovieState>(
-      bloc: searchMovieBloc,
+    return BlocBuilder<SearchMovieCubit, SearchMovieState>(
+      cubit: searchMovieCubit,
       builder: (context, state) {
         if (state is SearchMovieError) {
           return AppErrorWidget(
             errorType: state.errorType,
-            onPressed: () =>
-                searchMovieBloc?.add(SearchTermChangedEvent(query)),
+            onPressed: () => searchMovieCubit?.searchTermChanged(query),
           );
         } else if (state is SearchMovieLoaded) {
           final movies = state.movies;

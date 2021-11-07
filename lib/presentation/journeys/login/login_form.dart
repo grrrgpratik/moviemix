@@ -5,7 +5,7 @@ import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
-import 'package:moviemix/presentation/blocs/login/login_bloc.dart';
+import 'package:moviemix/presentation/blocs/login/login_cubit.dart';
 import 'package:moviemix/presentation/widgets/button.dart';
 import 'package:moviemix/presentation/themes/text_theme.dart';
 
@@ -61,7 +61,7 @@ class _LoginFormState extends State<LoginForm> {
               child: Text(
                 TranslationConstants.loginToMovieApp.t(context),
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headline6,
               ),
             ),
             LabelFieldWidget(
@@ -76,7 +76,7 @@ class _LoginFormState extends State<LoginForm> {
               isPasswordField: true,
             ),
             //1
-            BlocConsumer<LoginBloc, LoginState>(
+            BlocConsumer<LoginCubit, LoginState>(
               buildWhen: (previous, current) => current is LoginError,
               builder: (context, state) {
                 if (state is LoginError)
@@ -97,11 +97,9 @@ class _LoginFormState extends State<LoginForm> {
             Button(
               onPressed: enableSignIn
                   ? () {
-                      BlocProvider.of<LoginBloc>(context).add(
-                        LoginInitiateEvent(
-                          _userNameController.text,
-                          _passwordController.text,
-                        ),
+                      BlocProvider.of<LoginCubit>(context).initiateLogin(
+                        _userNameController.text,
+                        _passwordController.text,
                       );
                     }
                   : null,

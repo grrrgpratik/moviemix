@@ -7,9 +7,9 @@ import 'package:moviemix/common/screenutil/screenutil.dart';
 import 'package:moviemix/di/get_it.dart';
 import 'package:moviemix/presentation/routes.dart';
 import 'app_localization.dart';
-import 'blocs/language/language_bloc.dart';
-import 'blocs/loading/loading_bloc.dart';
-import 'blocs/login/login_bloc.dart';
+import 'blocs/language/language_cubit.dart';
+import 'blocs/loading/loading_cubit.dart';
+import 'blocs/login/login_cubit.dart';
 import 'fade_page_route_builder.dart';
 import 'journeys/loading/loading_screen.dart';
 import 'themes/app_color.dart';
@@ -24,24 +24,24 @@ class MovieApp extends StatefulWidget {
 }
 
 class _MovieAppState extends State<MovieApp> {
-  LanguageBloc _languageBloc;
-  LoginBloc _loginBloc;
-  LoadingBloc _loadingBloc;
+  LanguageCubit _languageCubit;
+  LoginCubit _loginCubit;
+  LoadingCubit _loadingCubit;
   final _navigatorKey = GlobalKey<NavigatorState>();
   @override
   void initState() {
     super.initState();
-    _languageBloc = getItInstance<LanguageBloc>();
-    _languageBloc.add(LoadPreferredLanguageEvent());
-    _loginBloc = getItInstance<LoginBloc>();
-    _loadingBloc = getItInstance<LoadingBloc>();
+    _languageCubit = getItInstance<LanguageCubit>();
+    _languageCubit.loadPreferredLanguage();
+    _loginCubit = getItInstance<LoginCubit>();
+    _loadingCubit = getItInstance<LoadingCubit>();
   }
 
   @override
   void dispose() {
-    _languageBloc.close();
-    _loginBloc?.close();
-    _loadingBloc?.close();
+    _languageCubit.close();
+    _loginCubit?.close();
+    _loadingCubit?.close();
     super.dispose();
   }
 
@@ -50,61 +50,58 @@ class _MovieAppState extends State<MovieApp> {
     ScreenUtil.init();
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LanguageBloc>.value(
-          value: _languageBloc,
+        BlocProvider<LanguageCubit>.value(
+          value: _languageCubit,
         ),
-        BlocProvider<LoginBloc>.value(
-          value: _loginBloc,
+        BlocProvider<LoginCubit>.value(
+          value: _loginCubit,
         ),
-        BlocProvider<LoadingBloc>.value(
-          value: _loadingBloc,
+        BlocProvider<LoadingCubit>.value(
+          value: _loadingCubit,
         ),
       ],
-      child: BlocBuilder<LanguageBloc, LanguageState>(
-        builder: (context, state) {
-          if (state is LanguageLoaded) {
-            return WiredashApp(
-              navigatorKey: _navigatorKey,
-              languageCode: state.locale.languageCode,
-              child: MaterialApp(
-                  navigatorKey: _navigatorKey,
-                  debugShowCheckedModeBanner: false,
-                  title: 'Movie App',
-                  theme: ThemeData(
-                      unselectedWidgetColor: AppColor.royalBlue,
-                      primaryColor: AppColor.vulcan,
-                      accentColor: AppColor.royalBlue,
-                      scaffoldBackgroundColor: AppColor.vulcan,
-                      visualDensity: VisualDensity.adaptivePlatformDensity,
-                      textTheme: ThemeText.getTextTheme(),
-                      appBarTheme: const AppBarTheme(elevation: 0),
-                      cardTheme: CardTheme(color: Colors.white),
-                      brightness: Brightness.dark),
-                  supportedLocales:
-                      Languages.languages.map((e) => Locale(e.code)).toList(),
-                  locale: state.locale,
-                  localizationsDelegates: [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  builder: (context, child) {
-                    return LoadingScreen(
-                      screen: child,
-                    );
-                  },
-                  initialRoute: RouteList.initial,
-                  onGenerateRoute: (RouteSettings settings) {
-                    final routes = Routes.getRoutes(settings);
-                    final WidgetBuilder builder = routes[settings.name];
-                    return FadePageRouteBuilder(
-                      builder: builder,
-                      settings: settings,
-                    );
-                  }),
-            );
-          }
-          return const SizedBox.shrink();
+      child: BlocBuilder<LanguageCubit, Locale>(
+        builder: (context, locale) {
+          return WiredashApp(
+            navigatorKey: _navigatorKey,
+            languageCode: locale.languageCode,
+            child: MaterialApp(
+                navigatorKey: _navigatorKey,
+                debugShowCheckedModeBanner: false,
+                title: 'Movie App',
+                theme: ThemeData(
+                    unselectedWidgetColor: AppColor.royalBlue,
+                    primaryColor: AppColor.vulcan,
+                    accentColor: AppColor.royalBlue,
+                    scaffoldBackgroundColor: AppColor.vulcan,
+                    visualDensity: VisualDensity.adaptivePlatformDensity,
+                    textTheme: ThemeText.getTextTheme(),
+                    appBarTheme: const AppBarTheme(elevation: 0),
+                    cardTheme: CardTheme(color: Colors.white),
+                    brightness: Brightness.dark),
+                supportedLocales:
+                    Languages.languages.map((e) => Locale(e.code)).toList(),
+                locale: locale,
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                builder: (context, child) {
+                  return LoadingScreen(
+                    screen: child,
+                  );
+                },
+                initialRoute: RouteList.initial,
+                onGenerateRoute: (RouteSettings settings) {
+                  final routes = Routes.getRoutes(settings);
+                  final WidgetBuilder builder = routes[settings.name];
+                  return FadePageRouteBuilder(
+                    builder: builder,
+                    settings: settings,
+                  );
+                }),
+          );
         },
       ),
     );

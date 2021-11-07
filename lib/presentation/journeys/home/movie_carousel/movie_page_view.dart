@@ -4,7 +4,7 @@ import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/screenutil/screenutil.dart';
 import 'package:moviemix/domain/entities/movie_entity.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
-import 'package:moviemix/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
+import 'package:moviemix/presentation/blocs/movie_backdrop/movie_backdrop_cubit.dart';
 import 'animated_movie_card_widget.dart';
 
 class MoviePageView extends StatefulWidget {
@@ -60,8 +60,8 @@ class _MoviePageViewState extends State<MoviePageView> {
           pageSnapping: true,
           itemCount: widget.movies?.length ?? 0,
           onPageChanged: (index) {
-            BlocProvider.of<MovieBackdropBloc>(context)
-                .add(MovieBackdropChangedEvent(widget.movies[index]));
+            BlocProvider.of<MovieBackdropCubit>(context)
+                .backdropChanged(widget.movies[index]);
           }),
     );
   }

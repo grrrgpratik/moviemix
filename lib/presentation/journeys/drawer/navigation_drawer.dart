@@ -6,7 +6,7 @@ import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
-import 'package:moviemix/presentation/blocs/login/login_bloc.dart';
+import 'package:moviemix/presentation/blocs/login/login_cubit.dart';
 import 'package:moviemix/presentation/journeys/favorite/favorite.dart';
 import 'package:moviemix/presentation/widgets/app_dialog.dart';
 import 'package:moviemix/presentation/widgets/logo.dart';
@@ -71,8 +71,7 @@ class NavigationDrawer extends StatelessWidget {
                 _showDialog(context);
               },
             ),
-            //1
-            BlocListener<LoginBloc, LoginState>(
+            BlocListener<LoginCubit, LoginState>(
               listenWhen: (previous, current) => current is LogoutSuccess,
               listener: (context, state) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
@@ -81,7 +80,7 @@ class NavigationDrawer extends StatelessWidget {
               child: NavigationListItem(
                 title: TranslationConstants.logout.t(context),
                 onPressed: () {
-                  BlocProvider.of<LoginBloc>(context).add(LogoutEvent());
+                  BlocProvider.of<LoginCubit>(context).logout();
                 },
               ),
             ),
