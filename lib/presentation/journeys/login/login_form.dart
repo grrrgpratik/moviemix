@@ -12,6 +12,8 @@ import 'package:moviemix/presentation/themes/text_theme.dart';
 import 'label_field_widget.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({Key key}) : super(key: key);
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -68,12 +70,14 @@ class _LoginFormState extends State<LoginForm> {
               label: TranslationConstants.username.t(context),
               hintText: TranslationConstants.enterTMDbUsername.t(context),
               controller: _userNameController,
+              textFieldKey: const ValueKey('username_text_field_key'),
             ),
             LabelFieldWidget(
               label: TranslationConstants.password.t(context),
               hintText: TranslationConstants.enterPassword.t(context),
               controller: _passwordController,
               isPasswordField: true,
+              textFieldKey: const ValueKey('password_text_field_key'),
             ),
             //1
             BlocConsumer<LoginCubit, LoginState>(

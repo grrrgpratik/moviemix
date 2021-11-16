@@ -22,11 +22,15 @@ class LoginScreen extends StatelessWidget {
                     // color: Colors.white,
                     // width: Sizes.dimen_12.h,
                   ),
-                  Logo(height: Sizes.dimen_12.h),
+                  Logo(
+                      key: const ValueKey('logo_key'),
+                      height: Sizes.dimen_12.h),
                 ],
               ),
             ),
-            LoginForm(),
+            LoginForm(
+              key: const ValueKey('login_form_key'),
+            ),
           ],
         ),
       ),

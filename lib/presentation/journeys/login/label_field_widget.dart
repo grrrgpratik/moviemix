@@ -4,6 +4,7 @@ import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/presentation/themes/text_theme.dart';
 
 class LabelFieldWidget extends StatelessWidget {
+  final Key textFieldKey;
   final String label;
   final String hintText;
   final bool isPasswordField;
@@ -26,6 +27,7 @@ class LabelFieldWidget extends StatelessWidget {
     @required this.hintText,
     @required this.controller,
     this.isPasswordField = false,
+    this.textFieldKey,
   }) : super(key: key);
 
   @override
@@ -41,6 +43,7 @@ class LabelFieldWidget extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           TextField(
+            key: textFieldKey,
             obscureText: isPasswordField,
             obscuringCharacter: '*',
             controller: controller,
