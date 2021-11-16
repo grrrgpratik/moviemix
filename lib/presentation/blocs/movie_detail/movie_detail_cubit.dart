@@ -34,7 +34,6 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
         await getMovieDetail(
       MovieParams(movieId),
     );
-
     emit(eitherResponse.fold(
       (l) => MovieDetailError(),
       (r) => MovieDetailLoaded(r),
