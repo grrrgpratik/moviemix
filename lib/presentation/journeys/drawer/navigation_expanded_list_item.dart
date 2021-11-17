@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviemix/common/constants/language.dart';
 import 'package:moviemix/presentation/blocs/language/language_cubit.dart';
+import 'package:moviemix/presentation/themes/app_color.dart';
 
 import 'navigation_sub_list_item.dart';
 
@@ -29,6 +30,8 @@ class NavigationExpandedListItem extends StatelessWidget {
         ],
       ),
       child: ExpansionTile(
+        collapsedIconColor: AppColor.royalBlue,
+        iconColor: AppColor.royalBlue,
         title: Text(
           title,
           style: Theme.of(context).textTheme.subtitle1,

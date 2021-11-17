@@ -47,6 +47,10 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LogoutSuccess());
   }
 
+  void initiateGuestLogin() async {
+    emit(LoginSuccess());
+  }
+
   String getErrorMessage(AppErrorType appErrorType) {
     switch (appErrorType) {
       case AppErrorType.network:

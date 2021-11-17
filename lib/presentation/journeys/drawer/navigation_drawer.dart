@@ -7,6 +7,8 @@ import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
 import 'package:moviemix/presentation/blocs/login/login_cubit.dart';
+import 'package:moviemix/presentation/blocs/theme/theme_cubit.dart';
+import 'package:moviemix/presentation/themes/app_color.dart';
 import 'package:moviemix/presentation/widgets/app_dialog.dart';
 import 'package:moviemix/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';
@@ -83,6 +85,24 @@ class NavigationDrawer extends StatelessWidget {
                 },
               ),
             ),
+            Spacer(),
+            BlocBuilder<ThemeCubit, Themes>(builder: (context, theme) {
+              return Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                  onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+                  icon: Icon(
+                    theme == Themes.dark
+                        ? Icons.brightness_4_sharp
+                        : Icons.brightness_7_sharp,
+                    color: context.read<ThemeCubit>().state == Themes.dark
+                        ? Colors.white
+                        : AppColor.vulcan,
+                    size: Sizes.dimen_40.w,
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),

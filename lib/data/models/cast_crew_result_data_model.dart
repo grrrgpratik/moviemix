@@ -1,9 +1,9 @@
-import 'package:moviemix/domain/entities/cast_entity.dart';
+import '../../domain/entities/cast_entity.dart';
 
 class CastCrewResultModel {
-  int id;
-  late List<CastModel> cast;
-  late List<Crew> crew;
+  final int id;
+  late final List<CastModel> cast;
+  late final List<Crew> crew;
 
   CastCrewResultModel(
       {required this.id, required this.cast, required this.crew});
@@ -87,13 +87,13 @@ class CastModel extends CastEntity {
   factory CastModel.fromJson(Map<String, dynamic> json) {
     return CastModel(
       castId: json['cast_id'],
-      character: json['character'] ?? "",
-      creditId: json['credit_id'] ?? "",
+      character: json['character'] ?? '',
+      creditId: json['credit_id'] ?? '',
       gender: json['gender'],
       id: json['id'],
-      name: json['name'] ?? "",
+      name: json['name'] ?? '',
       order: json['order'],
-      profilePath: json['profile_path'] ?? "",
+      profilePath: json['profile_path'] ?? '',
     );
   }
 
@@ -130,13 +130,13 @@ class Crew {
       required this.profilePath});
 
   Crew.fromJson(Map<String, dynamic> json) {
-    creditId = json['credit_id'];
-    department = json['department'];
+    creditId = json['credit_id'] ?? '';
+    department = json['department'] ?? '';
     gender = json['gender'];
     id = json['id'];
     job = json['job'];
-    name = json['name'];
-    profilePath = json['profile_path'];
+    name = json['name'] ?? '';
+    profilePath = json['profile_path'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

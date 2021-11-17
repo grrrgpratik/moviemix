@@ -99,19 +99,19 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
             Button(
-              onPressed: () {
-                print(enableSignIn);
-                if (enableSignIn) {
-                  print("insiade");
-
-                  BlocProvider.of<LoginCubit>(context).initiateLogin(
-                    _userNameController?.text ?? '',
-                    _passwordController?.text ?? '',
-                  );
-                }
-              },
+              onPressed: () => enableSignIn
+                  ? BlocProvider.of<LoginCubit>(context).initiateLogin(
+                      _userNameController?.text ?? '',
+                      _passwordController?.text ?? '',
+                    )
+                  : null,
               text: TranslationConstants.signIn,
               isEnabled: enableSignIn,
+            ),
+            Button(
+              onPressed: () =>
+                  BlocProvider.of<LoginCubit>(context).initiateGuestLogin(),
+              text: TranslationConstants.guestSignIn,
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/data/core/api_constants.dart';
 import 'package:moviemix/presentation/blocs/cast/cast_cubit.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
+import 'package:moviemix/presentation/blocs/theme/theme_cubit.dart';
 import 'package:moviemix/presentation/themes/text_theme.dart';
 
 class CastWidget extends StatelessWidget {
@@ -60,7 +61,10 @@ class CastWidget extends StatelessWidget {
                             castEntity.name,
                             overflow: TextOverflow.fade,
                             maxLines: 1,
-                            style: Theme.of(context).textTheme.vulcanBodyText2,
+                            style: context.read<ThemeCubit>().state ==
+                                    Themes.dark
+                                ? Theme.of(context).textTheme.vulcanBodyText2
+                                : Theme.of(context).textTheme.whiteBodyText2,
                           ),
                         ),
                         Padding(

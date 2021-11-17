@@ -21,6 +21,7 @@ import 'package:moviemix/domain/use_case/get_movie_detail.dart';
 import 'package:moviemix/domain/use_case/get_playing_now.dart';
 import 'package:moviemix/domain/use_case/get_popular.dart';
 import 'package:moviemix/domain/use_case/get_preferred_language.dart';
+import 'package:moviemix/domain/use_case/get_preferred_theme.dart';
 import 'package:moviemix/domain/use_case/get_trending.dart';
 import 'package:moviemix/domain/use_case/get_videos.dart';
 import 'package:moviemix/domain/use_case/login_user.dart';
@@ -28,6 +29,7 @@ import 'package:moviemix/domain/use_case/logout_user.dart';
 import 'package:moviemix/domain/use_case/save_movie.dart';
 import 'package:moviemix/domain/use_case/search_movies.dart';
 import 'package:moviemix/domain/use_case/update_language.dart';
+import 'package:moviemix/domain/use_case/update_theme.dart';
 import 'package:moviemix/presentation/blocs/cast/cast_cubit.dart';
 import 'package:moviemix/presentation/blocs/favorite/favorite_cubit.dart';
 import 'package:moviemix/presentation/blocs/language/language_cubit.dart';
@@ -38,6 +40,7 @@ import 'package:moviemix/presentation/blocs/movie_carousel/movie_carousel_cubit.
 import 'package:moviemix/presentation/blocs/movie_detail/movie_detail_cubit.dart';
 import 'package:moviemix/presentation/blocs/movie_tabbed/movie_tabbed_cubit.dart';
 import 'package:moviemix/presentation/blocs/search_movie/search_movie_cubit.dart';
+import 'package:moviemix/presentation/blocs/theme/theme_cubit.dart';
 import 'package:moviemix/presentation/blocs/videos/videos_cubit.dart';
 
 final getItInstance = GetIt.I;
@@ -111,6 +114,12 @@ Future init() async {
   getItInstance
       .registerLazySingleton<LogoutUser>(() => LogoutUser(getItInstance()));
 
+  getItInstance
+      .registerLazySingleton<UpdateTheme>(() => UpdateTheme(getItInstance()));
+
+  getItInstance.registerLazySingleton<GetPreferredTheme>(
+      () => GetPreferredTheme(getItInstance()));
+
   //Bloc
   getItInstance.registerFactory(
     () => MovieCarouselCubit(
@@ -168,4 +177,9 @@ Future init() async {
       loadingCubit: getItInstance()));
 
   getItInstance.registerLazySingleton(() => LoadingCubit());
+
+  getItInstance.registerSingleton<ThemeCubit>(ThemeCubit(
+    getPreferredTheme: getItInstance(),
+    updateTheme: getItInstance(),
+  ));
 }

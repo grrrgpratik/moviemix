@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/presentation/blocs/search_movie/search_movie_cubit.dart';
+import 'package:moviemix/presentation/blocs/theme/theme_cubit.dart';
 import 'package:moviemix/presentation/journeys/search_movie/search_movie_card.dart';
 import 'package:moviemix/presentation/themes/app_color.dart';
 import 'package:moviemix/presentation/widgets/app_error_widget.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
-import 'package:moviemix/presentation/themes/text_theme.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final SearchMovieCubit searchMovieCubit;
@@ -16,20 +16,7 @@ class CustomSearchDelegate extends SearchDelegate {
   CustomSearchDelegate(this.searchMovieCubit);
 
   @override
-  ThemeData appBarTheme(BuildContext context) {
-    return Theme.of(context).copyWith(
-      inputDecorationTheme: InputDecorationTheme(
-        hintStyle: Theme.of(context).textTheme.greySubtitle1,
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColor.vulcan,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.vulcan)),
-      ),
-    );
-  }
+  ThemeData appBarTheme(BuildContext context) => Theme.of(context);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -37,8 +24,7 @@ class CustomSearchDelegate extends SearchDelegate {
       IconButton(
         icon: Icon(
           Icons.clear,
-          size: Sizes.dimen_12.h,
-          color: query.isEmpty ? Colors.grey : AppColor.royalBlue,
+          color: query.isEmpty ? Colors.grey : Theme.of(context).accentColor,
         ),
         onPressed: query.isEmpty ? null : () => query = '',
       ),
@@ -53,8 +39,10 @@ class CustomSearchDelegate extends SearchDelegate {
       },
       child: Icon(
         Icons.arrow_back_ios,
-        color: Colors.white,
-        size: Sizes.dimen_10.h,
+        color: context.read<ThemeCubit>().state == Themes.dark
+            ? Colors.white
+            : AppColor.vulcan,
+        size: Sizes.dimen_12.h,
       ),
     );
   }
@@ -64,6 +52,7 @@ class CustomSearchDelegate extends SearchDelegate {
     searchMovieCubit.searchTermChanged(query);
 
     return BlocBuilder<SearchMovieCubit, SearchMovieState>(
+      bloc: searchMovieCubit,
       builder: (context, state) {
         if (state is SearchMovieError) {
           return AppErrorWidget(
@@ -72,7 +61,6 @@ class CustomSearchDelegate extends SearchDelegate {
           );
         } else if (state is SearchMovieLoaded) {
           final movies = state.movies;
-
           if (movies.isEmpty) {
             return Center(
               child: Padding(
