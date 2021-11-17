@@ -4,12 +4,12 @@ import 'package:moviemix/common/extension/size_extension.dart';
 
 class NavigationSubListItem extends StatelessWidget {
   final String title;
-  final Function onPressed;
+  final Function() onPressed;
 
   const NavigationSubListItem({
-    Key key,
-    @required this.title,
-    @required this.onPressed,
+    Key? key,
+    required this.title,
+    required this.onPressed,
   }) : super(key: key);
 
   @override

@@ -12,8 +12,8 @@ class WatchVideoScreen extends StatefulWidget {
   final WatchVideoArguments watchVideoArguments;
 
   const WatchVideoScreen({
-    Key key,
-    @required this.watchVideoArguments,
+    Key? key,
+    required this.watchVideoArguments,
   }) : super(key: key);
 
   @override
@@ -21,8 +21,8 @@ class WatchVideoScreen extends StatefulWidget {
 }
 
 class _WatchVideoScreenState extends State<WatchVideoScreen> {
-  List<VideoEntity> _videos;
-  YoutubePlayerController _controller;
+  late List<VideoEntity> _videos;
+  late YoutubePlayerController _controller;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -72,7 +72,7 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
                     children: [
                       for (int i = 0; i < _videos.length; i++)
                         Container(
-                          height: 60.h,
+                          height: Sizes.dimen_60.h,
                           padding:
                               EdgeInsets.symmetric(vertical: Sizes.dimen_8.h),
                           child: Row(
@@ -92,8 +92,8 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.w),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Sizes.dimen_8.w),
                                   child: Text(
                                     _videos[i].title,
                                     style:

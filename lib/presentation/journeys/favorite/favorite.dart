@@ -13,7 +13,7 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  FavoriteCubit _favoriteCubit;
+  late FavoriteCubit _favoriteCubit;
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   void dispose() {
-    _favoriteCubit?.close();
+    _favoriteCubit.close();
     super.dispose();
   }
 

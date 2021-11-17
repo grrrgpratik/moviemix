@@ -4,21 +4,19 @@ import 'package:moviemix/common/constants/route_constants.dart';
 import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/presentation/blocs/videos/videos_cubit.dart';
 import 'package:moviemix/presentation/journeys/watch_video/watch_video_arguments.dart';
-import 'package:moviemix/presentation/journeys/watch_video/watch_video_screen.dart';
 import 'package:moviemix/presentation/widgets/button.dart';
 
 class VideosWidget extends StatelessWidget {
   final VideosCubit videosCubit;
 
   const VideosWidget({
-    Key key,
-    this.videosCubit,
+    Key? key,
+    required this.videosCubit,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
-      cubit: videosCubit,
+    return BlocBuilder<VideosCubit, VideosState>(
       builder: (context, state) {
         if (state is VideosLoaded && state.videos.iterator.moveNext()) {
           final _videos = state.videos;

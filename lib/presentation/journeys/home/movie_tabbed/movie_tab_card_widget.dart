@@ -6,17 +6,16 @@ import 'package:moviemix/data/core/api_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
 import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_arguments.dart';
-import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_screen.dart';
 
 class MovieTabCardWidget extends StatelessWidget {
   final int movieId;
   final String title, posterPath;
 
   const MovieTabCardWidget({
-    Key key,
-    @required this.movieId,
-    @required this.title,
-    @required this.posterPath,
+    Key? key,
+    required this.movieId,
+    required this.title,
+    required this.posterPath,
   }) : super(key: key);
 
   @override

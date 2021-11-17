@@ -17,16 +17,16 @@ import 'themes/text_theme.dart';
 import 'wiredash_app.dart';
 
 class MovieApp extends StatefulWidget {
-  const MovieApp({Key key}) : super(key: key);
+  const MovieApp({Key? key}) : super(key: key);
 
   @override
   _MovieAppState createState() => _MovieAppState();
 }
 
 class _MovieAppState extends State<MovieApp> {
-  LanguageCubit _languageCubit;
-  LoginCubit _loginCubit;
-  LoadingCubit _loadingCubit;
+  late LanguageCubit _languageCubit;
+  late LoginCubit _loginCubit;
+  late LoadingCubit _loadingCubit;
   final _navigatorKey = GlobalKey<NavigatorState>();
   @override
   void initState() {
@@ -40,8 +40,8 @@ class _MovieAppState extends State<MovieApp> {
   @override
   void dispose() {
     _languageCubit.close();
-    _loginCubit?.close();
-    _loadingCubit?.close();
+    _loginCubit.close();
+    _loadingCubit.close();
     super.dispose();
   }
 
@@ -72,7 +72,6 @@ class _MovieAppState extends State<MovieApp> {
                 theme: ThemeData(
                     unselectedWidgetColor: AppColor.royalBlue,
                     primaryColor: AppColor.vulcan,
-                    accentColor: AppColor.royalBlue,
                     scaffoldBackgroundColor: AppColor.vulcan,
                     visualDensity: VisualDensity.adaptivePlatformDensity,
                     textTheme: ThemeText.getTextTheme(),
@@ -89,15 +88,15 @@ class _MovieAppState extends State<MovieApp> {
                 ],
                 builder: (context, child) {
                   return LoadingScreen(
-                    screen: child,
+                    screen: child!,
                   );
                 },
                 initialRoute: RouteList.initial,
                 onGenerateRoute: (RouteSettings settings) {
                   final routes = Routes.getRoutes(settings);
-                  final WidgetBuilder builder = routes[settings.name];
+                  final WidgetBuilder? builder = routes[settings.name];
                   return FadePageRouteBuilder(
-                    builder: builder,
+                    builder: builder!,
                     settings: settings,
                   );
                 }),

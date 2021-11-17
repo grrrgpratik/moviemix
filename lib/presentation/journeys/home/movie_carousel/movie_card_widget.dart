@@ -5,16 +5,15 @@ import 'package:moviemix/common/constants/size_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/data/core/api_constants.dart';
 import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_arguments.dart';
-import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_screen.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final int movieId;
   final String posterPath;
 
   const MovieCardWidget({
-    Key key,
-    @required this.movieId,
-    @required this.posterPath,
+    Key? key,
+    required this.movieId,
+    required this.posterPath,
   }) : super(key: key);
 
   @override

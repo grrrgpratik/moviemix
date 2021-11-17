@@ -66,7 +66,7 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget>
                           currentTabIndex: state.currentTabIndex)),
                 ),
               if (state is MovieTabChanged)
-                state.movies?.isEmpty ?? true
+                state.movies.isEmpty
                     ? Expanded(
                         child: Center(
                           child: Text(

@@ -7,7 +7,6 @@ import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 import 'package:moviemix/common/extension/string_extension.dart';
 import 'package:moviemix/presentation/blocs/login/login_cubit.dart';
-import 'package:moviemix/presentation/journeys/favorite/favorite.dart';
 import 'package:moviemix/presentation/widgets/app_dialog.dart';
 import 'package:moviemix/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';
@@ -61,7 +60,7 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslationConstants.feedback.t(context),
               onPressed: () {
                 Navigator.of(context).pop();
-                Wiredash.of(context).show();
+                Wiredash.of(context)?.show();
               },
             ),
             NavigationListItem(

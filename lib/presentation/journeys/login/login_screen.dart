@@ -9,29 +9,31 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: Sizes.dimen_32.h),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/png/logo2.png',
-                    // color: Colors.white,
-                    // width: Sizes.dimen_12.h,
-                  ),
-                  Logo(
-                      key: const ValueKey('logo_key'),
-                      height: Sizes.dimen_12.h),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: Sizes.dimen_32.h),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/png/logo2.png',
+                      // color: Colors.white,
+                      // width: Sizes.dimen_12.h,
+                    ),
+                    Logo(
+                        key: const ValueKey('logo_key'),
+                        height: Sizes.dimen_12.h),
+                  ],
+                ),
               ),
-            ),
-            LoginForm(
-              key: const ValueKey('login_form_key'),
-            ),
-          ],
+              LoginForm(
+                key: const ValueKey('login_form_key'),
+              ),
+            ],
+          ),
         ),
       ),
     );

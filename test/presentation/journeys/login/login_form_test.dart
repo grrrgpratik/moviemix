@@ -20,12 +20,18 @@ class LoadingCubitMock extends Mock implements LoadingCubit {}
 
 class NavigatorObseverMock extends Mock implements NavigatorObserver {}
 
+class MockRoute extends Route {
+  final RouteSettings settings;
+
+  MockRoute(this.settings) : super(settings: settings);
+}
+
 main() {
-  Widget app;
-  LanguageCubitMock _languageCubitMock;
-  LoginCubitMock _loginCubitMock;
-  LoadingCubitMock _loadingCubitMock;
-  NavigatorObseverMock _observer;
+  late Widget app;
+  late LanguageCubitMock _languageCubitMock;
+  late LoginCubitMock _loginCubitMock;
+  late LoadingCubitMock _loadingCubitMock;
+  late NavigatorObseverMock _observer;
 
   setUp(() {
     _languageCubitMock = LanguageCubitMock();
@@ -121,7 +127,8 @@ main() {
 
     expect(find.text('Session denied'), findsNothing);
 
-    verify(_observer.didPush(any, any));
+    verify(_observer.didPush(MockRoute(RouteSettings(name: '/')),
+        MockRoute(RouteSettings(name: '/home'))));
     verify(_loginCubitMock.initiateLogin('username', 'password')).called(1);
   });
 }

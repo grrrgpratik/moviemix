@@ -4,7 +4,7 @@ import 'package:moviemix/data/models/request_token_model.dart';
 abstract class AuthenticationRemoteDataSource {
   Future<RequestTokenModel> getRequestToken();
   Future<RequestTokenModel> validateWithLogin(Map<String, dynamic> requestBody);
-  Future<String> createSession(Map<String, dynamic> requestBody);
+  Future<String?> createSession(Map<String, dynamic> requestBody);
   Future<bool> deleteSession(String sessionId);
 }
 

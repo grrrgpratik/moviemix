@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:moviemix/domain/entities/app_error.dart';
 import 'package:moviemix/domain/entities/movie_detail_entity.dart';
 import 'package:moviemix/domain/entities/movie_params.dart';
@@ -21,11 +20,11 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
   final LoadingCubit loadingCubit;
 
   MovieDetailCubit({
-    @required this.getMovieDetail,
-    @required this.castCubit,
-    @required this.videosCubit,
-    @required this.favoriteCubit,
-    @required this.loadingCubit,
+    required this.getMovieDetail,
+    required this.castCubit,
+    required this.videosCubit,
+    required this.favoriteCubit,
+    required this.loadingCubit,
   }) : super(MovieDetailInitial());
 
   void loadMovieDetail(int movieId) async {

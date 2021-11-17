@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:moviemix/domain/entities/app_error.dart';
 import 'package:moviemix/domain/entities/movie_entity.dart';
 import 'package:moviemix/domain/entities/movie_search_params.dart';
@@ -15,8 +14,8 @@ class SearchMovieCubit extends Cubit<SearchMovieState> {
   final LoadingCubit loadingCubit;
 
   SearchMovieCubit({
-    @required this.searchMovies,
-    @required this.loadingCubit,
+    required this.searchMovies,
+    required this.loadingCubit,
   }) : super(SearchMovieInitial());
 
   void searchTermChanged(String searchTerm) async {

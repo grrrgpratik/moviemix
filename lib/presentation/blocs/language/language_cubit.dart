@@ -16,8 +16,8 @@ class LanguageCubit extends Cubit<Locale> {
   final UpdateLanguage updateLanguage;
 
   LanguageCubit({
-    @required this.getPreferredLanguage,
-    @required this.updateLanguage,
+    required this.getPreferredLanguage,
+    required this.updateLanguage,
   }) : super(
           Locale(Languages.languages[0].code),
         );
@@ -31,7 +31,7 @@ class LanguageCubit extends Cubit<Locale> {
     final response = await getPreferredLanguage(NoParams());
     emit(response.fold(
       (l) => Locale(Languages.languages[0].code),
-      (r) => r == null ? Locale(Languages.languages[0].code) : Locale(r),
+      (r) => Locale(r),
     ));
   }
 }

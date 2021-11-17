@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'movie_detail_entity.dart';
 
@@ -8,19 +7,19 @@ class MovieEntity extends Equatable {
   final int id;
   final String title;
   final String backdropPath;
-  final num voteAverage;
-  final String releaseDate;
-  final String overview;
+  final num? voteAverage;
+  final String? releaseDate;
+  final String? overview;
 
   const MovieEntity({
-    @required this.id,
-    @required this.title,
-    @required this.backdropPath,
-    @required this.voteAverage,
-    @required this.releaseDate,
-    @required this.posterPath,
+    required this.id,
+    required this.title,
+    required this.backdropPath,
+    required this.voteAverage,
+    required this.releaseDate,
+    required this.posterPath,
     this.overview,
-  }) : assert(id != null, 'Movie id must not be null');
+  });
 
   @override
   List<Object> get props => [id, title];
@@ -33,7 +32,7 @@ class MovieEntity extends Equatable {
     return MovieEntity(
       posterPath: movieDetailEntity.posterPath,
       id: movieDetailEntity.id,
-      backdropPath: movieDetailEntity.backdropPath,
+      backdropPath: movieDetailEntity.backdropPath ?? "-",
       title: movieDetailEntity.title,
       voteAverage: movieDetailEntity.voteAverage,
       releaseDate: movieDetailEntity.releaseDate,

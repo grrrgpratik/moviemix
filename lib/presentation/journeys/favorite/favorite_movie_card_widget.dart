@@ -7,15 +7,14 @@ import 'package:moviemix/data/core/api_constants.dart';
 import 'package:moviemix/domain/entities/movie_entity.dart';
 import 'package:moviemix/presentation/blocs/favorite/favorite_cubit.dart';
 import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_arguments.dart';
-import 'package:moviemix/presentation/journeys/movie_detail/movie_detail_screen.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 
 class FavoriteMovieCardWidget extends StatelessWidget {
   final MovieEntity movie;
 
   const FavoriteMovieCardWidget({
-    Key key,
-    @required this.movie,
+    Key? key,
+    required this.movie,
   }) : super(key: key);
 
   @override

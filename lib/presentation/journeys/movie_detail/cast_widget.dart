@@ -21,9 +21,6 @@ class CastWidget extends StatelessWidget {
               itemCount: state.casts.length,
               itemBuilder: (context, index) {
                 final castEntity = state.casts[index];
-                if (castEntity.posterPath == null) {
-                  return Container();
-                }
                 return Container(
                   height: Sizes.dimen_100.h,
                   width: Sizes.dimen_160.w,
@@ -44,7 +41,7 @@ class CastWidget extends StatelessWidget {
                         Expanded(
                           child: ClipRRect(
                             borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(8.w),
+                              top: Radius.circular(Sizes.dimen_8.w),
                             ),
                             child: CachedNetworkImage(
                               height: Sizes.dimen_100.h,

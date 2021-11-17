@@ -2,9 +2,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:moviemix/domain/entities/app_error.dart';
 import 'package:moviemix/domain/entities/movie_detail_entity.dart';
 import 'package:moviemix/domain/entities/movie_params.dart';
+import 'package:moviemix/domain/entities/no_params.dart';
 import 'package:moviemix/domain/use_case/get_movie_detail.dart';
 import 'package:moviemix/presentation/blocs/cast/cast_cubit.dart';
 import 'package:moviemix/presentation/blocs/favorite/favorite_cubit.dart';
@@ -14,14 +14,14 @@ import 'package:moviemix/presentation/blocs/videos/videos_cubit.dart';
 
 class GetMovieDetailMock extends Mock implements GetMovieDetail {}
 
-class CastCubitMock extends MockBloc<CastState> implements CastCubit {}
+class CastCubitMock extends MockCubit<CastState> implements CastCubit {}
 
-class VideosCubitMock extends MockBloc<VideosState> implements VideosCubit {}
+class VideosCubitMock extends MockCubit<VideosState> implements VideosCubit {}
 
-class FavoriteCubitMock extends MockBloc<FavoriteState>
+class FavoriteCubitMock extends MockCubit<FavoriteState>
     implements FavoriteCubit {}
 
-class LoadingCubitMock extends MockBloc<bool> implements LoadingCubit {}
+class LoadingCubitMock extends MockCubit<bool> implements LoadingCubit {}
 
 void main() {
   var movieDetailMock;
@@ -30,7 +30,7 @@ void main() {
   var favoriteCubitMock;
   var loadingCubitMock;
 
-  MovieDetailCubit movieDetailCubit;
+  late MovieDetailCubit movieDetailCubit;
 
   setUp(() {
     movieDetailMock = GetMovieDetailMock();
@@ -77,11 +77,11 @@ void main() {
 
           cubit.loadMovieDetail(1);
         },
-        expect: [
-          isA<MovieDetailLoaded>(),
-        ],
+        expect: () => [
+              isA<MovieDetailLoaded>(),
+            ],
         verify: (MovieDetailCubit cubit) {
-          verify(loadingCubitMock.call(any)).called(1);
+          verify(loadingCubitMock.call(NoParams())).called(1);
         });
 
     // blocTest('should load movie success',

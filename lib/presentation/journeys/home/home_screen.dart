@@ -12,17 +12,17 @@ import 'movie_carousel/movie_carousel_widget.dart';
 import 'movie_tabbed/movie_tabbed_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  MovieCarouselCubit movieCarouselCubit;
-  MovieBackdropCubit movieBackdropCubit;
-  MovieTabbedCubit movieTabbedCubit;
-  SearchMovieCubit searchMovieCubit;
+  late MovieCarouselCubit movieCarouselCubit;
+  late MovieBackdropCubit movieBackdropCubit;
+  late MovieTabbedCubit movieTabbedCubit;
+  late SearchMovieCubit searchMovieCubit;
 
   @override
   void initState() {
@@ -31,16 +31,16 @@ class _HomeScreenState extends State<HomeScreen> {
     movieBackdropCubit = movieCarouselCubit.movieBackdropCubit;
     movieTabbedCubit = getItInstance<MovieTabbedCubit>();
     searchMovieCubit = getItInstance<SearchMovieCubit>();
-    movieCarouselCubit.loadCarousel();
+    movieCarouselCubit.loadCarousel(defaultIndex: 4);
   }
 
   @override
   void dispose() {
     super.dispose();
-    movieCarouselCubit?.close();
-    movieBackdropCubit?.close();
-    movieTabbedCubit?.close();
-    searchMovieCubit?.close();
+    movieCarouselCubit.close();
+    movieBackdropCubit.close();
+    movieTabbedCubit.close();
+    searchMovieCubit.close();
   }
 
   @override
@@ -63,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         drawer: NavigationDrawer(),
         body: BlocBuilder<MovieCarouselCubit, MovieCarouselState>(
-          cubit: movieCarouselCubit,
           builder: (context, state) {
             if (state is MovieCarouselLoaded) {
               return Stack(

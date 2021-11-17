@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:moviemix/common/constants/translation_constants.dart';
 import 'package:moviemix/domain/entities/app_error.dart';
 import 'package:moviemix/domain/entities/login_request_params.dart';
@@ -17,12 +16,13 @@ class LoginCubit extends Cubit<LoginState> {
   final LogoutUser logoutUser;
   final LoadingCubit loadingCubit;
   LoginCubit({
-    @required this.loginUser,
-    @required this.logoutUser,
-    @required this.loadingCubit,
+    required this.loginUser,
+    required this.logoutUser,
+    required this.loadingCubit,
   }) : super(LoginInitial());
 
   void initiateLogin(String username, password) async {
+    print("logni claed");
     loadingCubit.show();
     final Either<AppError, bool> eitherResponse = await loginUser(
       LoginRequestParams(

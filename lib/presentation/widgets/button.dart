@@ -6,13 +6,13 @@ import 'package:moviemix/common/constants/size_constants.dart';
 
 class Button extends StatelessWidget {
   final String text;
-  final Function onPressed;
+  final Function() onPressed;
   final bool isEnabled;
 
   const Button({
-    Key key,
-    @required this.text,
-    @required this.onPressed,
+    Key? key,
+    required this.text,
+    required this.onPressed,
     this.isEnabled = true,
   }) : super(key: key);
 
