@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moviemix/common/constants/size_constants.dart';
+import 'package:moviemix/presentation/blocs/theme/theme_cubit.dart';
 import 'package:moviemix/presentation/widgets/logo.dart';
 import 'package:moviemix/common/extension/size_extension.dart';
 
@@ -23,9 +25,20 @@ class LoginScreen extends StatelessWidget {
                       // color: Colors.white,
                       // width: Sizes.dimen_12.h,
                     ),
-                    Logo(
-                        key: const ValueKey('logo_key'),
-                        height: Sizes.dimen_12.h),
+                    BlocBuilder<ThemeCubit, Themes>(
+                      builder: (context, state) {
+                        if (state == Themes.dark) {
+                          return Logo(
+                              key: const ValueKey('logo_key'),
+                              height: Sizes.dimen_12.h);
+                        } else {
+                          return Image.asset(
+                            'assets/png/logo_black.png',
+                            height: Sizes.dimen_12.h,
+                          );
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),

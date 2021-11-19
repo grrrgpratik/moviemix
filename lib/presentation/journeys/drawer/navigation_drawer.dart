@@ -92,9 +92,7 @@ class NavigationDrawer extends StatelessWidget {
                 child: IconButton(
                   onPressed: () => context.read<ThemeCubit>().toggleTheme(),
                   icon: Icon(
-                    theme == Themes.dark
-                        ? Icons.brightness_4_sharp
-                        : Icons.brightness_7_sharp,
+                    theme == Themes.dark ? Icons.dark_mode : Icons.light_mode,
                     color: context.read<ThemeCubit>().state == Themes.dark
                         ? Colors.white
                         : AppColor.vulcan,
